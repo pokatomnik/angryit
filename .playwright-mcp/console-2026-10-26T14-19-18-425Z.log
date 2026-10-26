@@ -1,0 +1,28 @@
+[      56ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[   41814ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[   51444ms] TypeError: Cannot read properties of null (reading 'off')
+    at EventEmitter2.<anonymous> (http://127.0.0.1:5173/src/game/scenes/GameScene.ts?t=1793024240721:80:25)
+    at EventEmitter2.emit (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:120:43)
+    at Systems2.shutdown (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:112954:28)
+    at SceneManager2.stop (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:111297:33)
+    at SceneManager2.processQueue (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:110591:37)
+    at SceneManager2.update (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:110769:26)
+    at Game2.step (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8625:32)
+    at TimeStep2.step (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:9079:26)
+    at step (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:16406:29)
+[   52220ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[  136201ms] TypeError: Cannot read properties of null (reading 'off')
+    at EventEmitter2.<anonymous> (http://127.0.0.1:5173/src/game/scenes/GameScene.ts?t=1793024240721:80:25)
+    at EventEmitter2.emit (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:120:43)
+    at Systems2.shutdown (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:112954:28)
+    at SceneManager2.stop (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:111297:33)
+    at SceneManager2.processQueue (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:110591:37)
+    at SceneManager2.update (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:110769:26)
+    at Game2.step (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8625:32)
+    at TimeStep2.step (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:9079:26)
+    at step (http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:16406:29)
+[  136251ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[  227880ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[  235458ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[  244536ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456
+[  263793ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:5173/node_modules/.vite/deps/phaser.js?v=29d74d4c:8456

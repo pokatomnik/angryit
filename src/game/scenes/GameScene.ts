@@ -200,6 +200,7 @@ export class GameScene extends Phaser.Scene {
 
     this.add
       .text(37, 27, "ANGRY", {
+        resolution: 3,
         fontFamily: "Arial, sans-serif",
         fontSize: "30px",
         fontStyle: "bold",
@@ -209,6 +210,7 @@ export class GameScene extends Phaser.Scene {
       .setDepth(90);
     this.add
       .text(152, 27, "IT", {
+        resolution: 3,
         fontFamily: "Arial, sans-serif",
         fontSize: "30px",
         fontStyle: "bold",
@@ -218,6 +220,7 @@ export class GameScene extends Phaser.Scene {
       .setDepth(90);
     this.add
       .text(40, 65, "SECURITY IS A STRUCTURAL PROBLEM", {
+        resolution: 3,
         fontFamily: "Arial, sans-serif",
         fontSize: "9px",
         fontStyle: "bold",
@@ -244,6 +247,7 @@ export class GameScene extends Phaser.Scene {
     const titleX = MEME_REFERENCE.originX + 138 * MEME_REFERENCE.scale;
     this.add
       .text(titleX, panel.y + 15, "ALL MODERN DIGITAL", {
+        resolution: 3,
         fontFamily: "Comic Sans MS, Chalkboard SE, Segoe Print, cursive",
         fontSize: "20px",
         color: "#1b1b1b",
@@ -253,6 +257,7 @@ export class GameScene extends Phaser.Scene {
       .setDepth(4);
     this.add
       .text(titleX, panel.y + 38, "INFRASTRUCTURE", {
+        resolution: 3,
         fontFamily: "Comic Sans MS, Chalkboard SE, Segoe Print, cursive",
         fontSize: "20px",
         color: "#1b1b1b",
@@ -388,6 +393,7 @@ export class GameScene extends Phaser.Scene {
 
     this.add
       .text(49, 126, "УЯЗВИМОСТИ В ОЧЕРЕДИ", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
@@ -400,6 +406,7 @@ export class GameScene extends Phaser.Scene {
     this.integrityGraphics = this.add.graphics().setDepth(84);
     this.integrityText = this.add
       .text(1228, 65, "100%", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "23px",
         fontStyle: "bold",
@@ -409,6 +416,7 @@ export class GameScene extends Phaser.Scene {
       .setDepth(90);
     this.add
       .text(948, 45, "СТРУКТУРНАЯ ЦЕЛОСТНОСТЬ", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
@@ -420,6 +428,7 @@ export class GameScene extends Phaser.Scene {
     this.integrityGraphics.fillRoundedRect(948, 78, 205, 8, 4);
     this.add
       .text(947, 92, "ЦЕЛЬ: ОБРУШИТЬ БАШНЮ", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "9px",
         fontStyle: "bold",
@@ -429,6 +438,7 @@ export class GameScene extends Phaser.Scene {
       .setDepth(90);
     this.add
       .text(47, 289, "ЦЕЛЬСЯ В ОПОРЫ", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "13px",
         fontStyle: "bold",
@@ -438,6 +448,7 @@ export class GameScene extends Phaser.Scene {
       .setDepth(90);
     this.currentHint = this.add
       .text(47, 311, "Тяни влево-вниз и отпускай", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "11px",
         color: "#8aa1b4",
@@ -446,6 +457,7 @@ export class GameScene extends Phaser.Scene {
 
     this.shotsText = this.add
       .text(1070, 128, "ВЫСТРЕЛЫ  0", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
@@ -465,6 +477,7 @@ export class GameScene extends Phaser.Scene {
     restart.on("pointerdown", () => this.scene.restart());
     this.add
       .text(1175, 136, "↻  RESTART", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
@@ -509,7 +522,8 @@ export class GameScene extends Phaser.Scene {
         .setDepth(89);
       const label = this.add
         .text(x + 40, y + 17, spec.shortLabel, {
-          fontFamily: "Inter, system-ui, sans-serif",
+          resolution: 3,
+        fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "9px",
           fontStyle: "bold",
           color: current ? "#f4f7fb" : "#91a5b6",
@@ -518,7 +532,8 @@ export class GameScene extends Phaser.Scene {
         .setDepth(90);
       const subtitle = this.add
         .text(x + 40, y + 34, current ? "СЕЙЧАС" : "ДАЛЕЕ", {
-          fontFamily: "Inter, system-ui, sans-serif",
+          resolution: 3,
+        fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "8px",
           fontStyle: "bold",
           color: current ? "#d4dfe9" : "#61798e",
@@ -985,7 +1000,8 @@ export class GameScene extends Phaser.Scene {
         GAME_HEIGHT / 2 - 77,
         won ? "INFRASTRUCTURE OFFLINE" : "СЕССИЯ ЗАВЕРШЕНА",
         {
-          fontFamily: "Inter, system-ui, sans-serif",
+          resolution: 3,
+        fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "11px",
           fontStyle: "bold",
           color: won ? "#5fe4e8" : "#ffb84d",
@@ -1000,7 +1016,8 @@ export class GameScene extends Phaser.Scene {
         GAME_HEIGHT / 2 - 29,
         won ? "БАШНЯ РАЗРУШЕНА" : "ПОПРОБУЙ ЕЩЁ",
         {
-          fontFamily: "Inter, system-ui, sans-serif",
+          resolution: 3,
+        fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "27px",
           fontStyle: "900",
           color: "#f4f7fb",
@@ -1017,7 +1034,8 @@ export class GameScene extends Phaser.Scene {
           ? `Цифровая инфраструктура выведена из строя за ${this.shotsFired} выстрелов.`
           : "Перезапусти уровень и попробуй новую траекторию.",
         {
-          fontFamily: "Inter, system-ui, sans-serif",
+          resolution: 3,
+        fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "13px",
           color: "#a8bdce",
           align: "center",
@@ -1035,6 +1053,7 @@ export class GameScene extends Phaser.Scene {
     button.on("pointerdown", () => this.scene.restart());
     const buttonLabel = this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 86, "НОВАЯ ПОПЫТКА", {
+        resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "11px",
         fontStyle: "bold",

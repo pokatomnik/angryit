@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { COLORS, PHYSICS, SLINGSHOT } from "../constants";
+import { COLORS, GROUND_Y, PHYSICS, SLINGSHOT } from "../constants";
 
 export class Slingshot {
   readonly anchor = new Phaser.Math.Vector2(SLINGSHOT.x, SLINGSHOT.y);
@@ -68,10 +68,11 @@ export class Slingshot {
 
   private drawFrame(): void {
     const g = this.frameGraphics;
-    const baseY = this.anchor.y + 96;
+    // The foot extends 15px below baseY, plus its 2px outer stroke.
+    const baseY = GROUND_Y - 17;
 
     g.fillStyle(0x000000, 0.09);
-    g.fillEllipse(this.anchor.x, baseY + 11, 126, 16);
+    g.fillEllipse(this.anchor.x, GROUND_Y + 2, 100, 10);
 
     // One broad handle splits into two fork arms in a clearly readable Y shape.
     g.lineStyle(32, COLORS.ink, 1);

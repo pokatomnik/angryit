@@ -9,6 +9,7 @@ const config: Phaser.Types.Core.GameConfig = {
   parent: "game",
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
+
   backgroundColor: COLORS.background,
   render: {
     antialias: true,

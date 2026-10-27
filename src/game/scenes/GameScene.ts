@@ -98,10 +98,12 @@ export class GameScene extends Phaser.Scene {
     this.input.on("pointerup", this.handlePointerUp, this);
     this.input.on("pointerupoutside", this.handlePointerUp, this);
     this.input.keyboard?.on("keydown-R", this.handleRestartKey);
-    this.matter.world.on("collisionstart", this.handleCollisionStart, this);
+    const matterWorld = this.matter.world;
+    matterWorld.on("collisionstart", this.handleCollisionStart, this);
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      this.matter.world.off("collisionstart", this.handleCollisionStart, this);
+      // Matter clears the plugin's world reference before this shutdown handler.
+      matterWorld.off("collisionstart", this.handleCollisionStart, this);
       this.input.off("pointerdown", this.handlePointerDown, this);
       this.input.off("pointermove", this.handlePointerMove, this);
       this.input.off("pointerup", this.handlePointerUp, this);

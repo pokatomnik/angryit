@@ -166,6 +166,28 @@ export function createGameTextures(scene: Phaser.Scene): void {
     g.strokeCircle(38, 38, 15);
     g.fillStyle(0xfff1c9, 1);
     g.fillCircle(38, 38, 5);
+
+    // Accessories sit around the bullseye, leaving its rings and centre visible.
+    g.lineStyle(2, COLORS.ink, 1);
+    g.beginPath();
+    g.moveTo(59, 30);
+    g.lineTo(66, 42);
+    g.lineTo(65, 53);
+    g.lineTo(61, 57);
+    g.strokePath();
+    g.fillStyle(0xfff7dc, 0.45);
+    g.fillCircle(52, 27, 10);
+    g.lineStyle(2.5, COLORS.ink, 1);
+    g.strokeCircle(52, 27, 10);
+    g.lineStyle(2, 0xfff7dc, 0.9);
+    g.lineBetween(48, 25, 52, 21);
+
+    g.fillStyle(COLORS.ink, 1);
+    g.fillEllipse(30, 54, 21, 9);
+    g.fillEllipse(46, 54, 21, 9);
+    g.fillTriangle(18, 49, 23, 56, 30, 53);
+    g.fillTriangle(58, 49, 53, 56, 46, 53);
+    g.fillTriangle(33, 50, 38, 53, 43, 50);
   });
 
   texture(scene, TEXTURES.spectre, 76, 76, (g) => {
@@ -183,9 +205,31 @@ export function createGameTextures(scene: Phaser.Scene): void {
     g.lineTo(44, 30);
     g.lineTo(54, 40);
     g.strokePath();
+
+    // Lipstick below the waveform; no eyes or other facial features.
+    const lips = [
+      { x: 25, y: 55 },
+      { x: 33, y: 49 },
+      { x: 38, y: 52 },
+      { x: 43, y: 49 },
+      { x: 51, y: 55 },
+      { x: 44, y: 61 },
+      { x: 38, y: 63 },
+      { x: 32, y: 61 },
+    ];
+    g.fillStyle(0xed163e, 1);
+    g.fillPoints(lips, true);
+    g.lineStyle(1.5, 0x9e1236, 1);
+    g.strokePoints(lips, true);
+    g.lineBetween(26, 55, 50, 55);
+    g.lineStyle(1.5, 0xffa1b5, 1);
+    g.lineBetween(34, 59, 41, 60);
   });
 
-  texture(scene, TEXTURES.ransomware, 76, 76, (g) => {
+  // Symmetric padding lets the hair extend above the circle while keeping
+  // the texture centre aligned with the circular body, even during rotation.
+  texture(scene, TEXTURES.ransomware, 76, 124, (g) => {
+    g.translateCanvas(0, 24);
     g.fillStyle(COLORS.ink, 1);
     g.fillCircle(38, 38, 35);
     g.fillStyle(COLORS.red, 1);
@@ -198,5 +242,25 @@ export function createGameTextures(scene: Phaser.Scene): void {
     g.strokeCircle(38, 35, 9);
     g.fillStyle(0xffe2e5, 1);
     g.fillCircle(38, 45, 3);
+
+    // A narrow, front-facing crest; the padlock stays fully visible.
+    const mohawk = [
+      { x: 30, y: 20 },
+      { x: 29, y: -12 },
+      { x: 34, y: -6 },
+      { x: 38, y: -21 },
+      { x: 42, y: -6 },
+      { x: 47, y: -12 },
+      { x: 46, y: 20 },
+      { x: 38, y: 17 },
+    ];
+    g.fillStyle(0x9bd34d, 1);
+    g.fillPoints(mohawk, true);
+    g.lineStyle(2.5, COLORS.ink, 1);
+    g.strokePoints(mohawk, true);
+    g.lineStyle(1.5, 0x4f7d2c, 1);
+    g.lineBetween(34, 16, 32, -5);
+    g.lineBetween(38, 14, 38, -15);
+    g.lineBetween(42, 16, 44, -5);
   });
 }

@@ -528,21 +528,21 @@ export class GameScene extends Phaser.Scene {
       this.queueDisplay.strokeRoundedRect(x, y, 87, 68, 10);
 
       const icon = this.add
-        .image(x + 21, y + 23, spec.textureKey)
-        .setDisplaySize(27, 27)
+        .image(x + 43.5, y + 24, spec.textureKey)
+        .setScale(30 / 76)
         .setDepth(89);
       const label = this.add
-        .text(x + 40, y + 17, spec.shortLabel, {
+        .text(x + 43.5, y + 46, spec.displayName, {
           resolution: 3,
           fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: "9px",
+          fontSize: "8px",
           fontStyle: "bold",
           color: current ? "#30383c" : "#586a71",
         })
-        .setOrigin(0, 0.5)
+        .setOrigin(0.5)
         .setDepth(90);
       const subtitle = this.add
-        .text(x + 40, y + 34, current ? "СЕЙЧАС" : "ДАЛЕЕ", {
+        .text(x + 43.5, y + 60, current ? "СЕЙЧАС" : "ДАЛЕЕ", {
           resolution: 3,
           fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "8px",
@@ -550,7 +550,7 @@ export class GameScene extends Phaser.Scene {
           color: current ? "#394f59" : "#738081",
           letterSpacing: 0.6,
         })
-        .setOrigin(0, 0.5)
+        .setOrigin(0.5)
         .setDepth(90);
       this.queueLabels.push(icon, label, subtitle);
     });

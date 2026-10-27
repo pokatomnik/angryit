@@ -1,32 +1,32 @@
 # Angry IT
 
-Браузерная физическая аркада: запускай уязвимости из рогатки в башню цифровой инфраструктуры и обрушь её.
+A browser-based physics arcade game: launch vulnerabilities from a slingshot at a tower of digital infrastructure and bring it down.
 
-## Запуск
+## Getting Started
 
 ```sh
 npm install
 npm run dev
 ```
 
-Открой адрес, который покажет Vite (по умолчанию `http://localhost:5173`).
+Open the URL printed by Vite (by default, `http://localhost:5173`).
 
-## Управление
+## Controls
 
-- Потяни снаряд мышью или пальцем назад от рогатки.
-- Отпусти, чтобы запустить его. Пунктир показывает приблизительную траекторию.
-- Снаряды бесконечны и чередуются: `mr. 0-day` → `Spectre` → `Ransomware`.
-- Кнопка `RESTART` или клавиша `R` перезапускает уровень.
+- Drag the projectile back from the slingshot using your mouse or finger.
+- Release to launch it. The dotted line shows the approximate trajectory.
+- Projectiles are unlimited and cycle through `mr. 0-day` → `Spectre` → `Ransomware`.
+- Click `RESTART` or press `R` to restart the level.
 
-`Spectre` повреждает блоки вокруг точки удара волной, `Ransomware` заражает и повреждает соседние блоки, а `mr. 0-day` наносит сильный прямой урон.
+`Spectre` sends out a shockwave that damages blocks around the impact point, `Ransomware` infects and damages nearby blocks, and `mr. 0-day` deals heavy direct damage.
 
-## Проверки
+## Validation
 
 ```sh
 npm run typecheck
 npm run build
 ```
 
-## Стек
+## Tech Stack
 
-TypeScript, Phaser 3, Matter.js (через Phaser Matter Physics), Vite. Графика генерируется в Phaser Graphics при запуске, внешние ассеты не нужны.
+TypeScript, Phaser 3, Matter.js (via Phaser Matter Physics), and Vite. Artwork is generated at startup using Phaser Graphics; no external art assets are required.

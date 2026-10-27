@@ -166,7 +166,10 @@ export class GameScene extends Phaser.Scene {
       const light = Math.exp(-Math.pow((t - 0.19) / 0.16, 2));
       const shadow = Math.exp(-t * 13) * 34 + t * 17;
       const shade = Math.round(238 + light * 14 - shadow);
-      ground.fillStyle(Phaser.Display.Color.GetColor(shade, shade - 3, shade - 12), 1);
+      ground.fillStyle(
+        Phaser.Display.Color.GetColor(shade, shade - 3, shade - 12),
+        1,
+      );
       ground.fillRect(0, GROUND_Y + row, GAME_WIDTH, 1);
     }
     ground.lineStyle(1, 0x8c8573, 0.55);
@@ -176,7 +179,14 @@ export class GameScene extends Phaser.Scene {
     ground.lineStyle(1, COLORS.grid, 0.23);
     for (let x = 0; x <= GAME_WIDTH; x += cell) {
       const line = new Phaser.Curves.Path(x, GROUND_Y);
-      line.cubicBezierTo(x + 7, GAME_HEIGHT, x - 2, GROUND_Y + 18, x + 6, GROUND_Y + 37);
+      line.cubicBezierTo(
+        x + 7,
+        GAME_HEIGHT,
+        x - 2,
+        GROUND_Y + 18,
+        x + 6,
+        GROUND_Y + 37,
+      );
       line.draw(ground, 20);
     }
     for (const y of [GROUND_Y + 18, GROUND_Y + 43, GAME_HEIGHT - 3]) {
@@ -272,8 +282,22 @@ export class GameScene extends Phaser.Scene {
     const center = (left + right) / 2;
     const curve = new Phaser.Curves.Path(left, bottom);
     curve.cubicBezierTo(center - 16, top + 2, left, top - 5, left + 5, top);
-    curve.cubicBezierTo(center, top - 7, center - 3, top + 2, center - 2, top - 3);
-    curve.cubicBezierTo(center + 16, top + 2, center + 2, top - 3, center + 3, top + 2);
+    curve.cubicBezierTo(
+      center,
+      top - 7,
+      center - 3,
+      top + 2,
+      center - 2,
+      top - 3,
+    );
+    curve.cubicBezierTo(
+      center + 16,
+      top + 2,
+      center + 2,
+      top - 3,
+      center + 3,
+      top + 2,
+    );
     curve.cubicBezierTo(right, bottom, right - 5, top, right, top - 5);
     graphics.lineStyle(1.8, INK.ink, 0.95);
     curve.draw(graphics, 64);
@@ -508,7 +532,7 @@ export class GameScene extends Phaser.Scene {
       const label = this.add
         .text(x + 40, y + 17, spec.shortLabel, {
           resolution: 3,
-        fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "9px",
           fontStyle: "bold",
           color: current ? "#30383c" : "#586a71",
@@ -518,7 +542,7 @@ export class GameScene extends Phaser.Scene {
       const subtitle = this.add
         .text(x + 40, y + 34, current ? "СЕЙЧАС" : "ДАЛЕЕ", {
           resolution: 3,
-        fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "8px",
           fontStyle: "bold",
           color: current ? "#394f59" : "#738081",
@@ -533,8 +557,7 @@ export class GameScene extends Phaser.Scene {
   private drawIntegrity(): void {
     const ratio =
       this.initialHealth > 0 ? this.remainingHealth / this.initialHealth : 1;
-    const color =
-      ratio > 0.58 ? 0x6c9274 : ratio > 0.28 ? 0xc59942 : 0xc36c58;
+    const color = ratio > 0.58 ? 0x6c9274 : ratio > 0.28 ? 0xc59942 : 0xc36c58;
     this.integrityGraphics.clear();
     this.integrityGraphics.fillStyle(0xd8ddcf, 1);
     this.integrityGraphics.fillRoundedRect(948, 78, 205, 8, 4);
@@ -623,7 +646,7 @@ export class GameScene extends Phaser.Scene {
     const velocityY = dy * SLINGSHOT.launchPower;
     this.wakeTower();
     projectile.launch(velocityX, velocityY);
-    this.slingshot.drawBand(projectile.image.x, projectile.image.y, false);
+    this.slingshot.release(projectile.image.x, projectile.image.y);
     this.slingshot.clearTrajectory();
     this.hasLaunched = true;
     this.shotsFired += 1;
@@ -986,7 +1009,7 @@ export class GameScene extends Phaser.Scene {
         won ? "INFRASTRUCTURE OFFLINE" : "СЕССИЯ ЗАВЕРШЕНА",
         {
           resolution: 3,
-        fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "11px",
           fontStyle: "bold",
           color: won ? "#356478" : "#ffb84d",
@@ -1002,7 +1025,7 @@ export class GameScene extends Phaser.Scene {
         won ? "БАШНЯ РАЗРУШЕНА" : "ПОПРОБУЙ ЕЩЁ",
         {
           resolution: 3,
-        fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "27px",
           fontStyle: "900",
           color: "#30383c",
@@ -1020,7 +1043,7 @@ export class GameScene extends Phaser.Scene {
           : "Перезапусти уровень и попробуй новую траекторию.",
         {
           resolution: 3,
-        fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "13px",
           color: "#59696c",
           align: "center",

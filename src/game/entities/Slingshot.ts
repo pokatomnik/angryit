@@ -17,14 +17,47 @@ export class Slingshot {
   private readonly bandGraphics: Phaser.GameObjects.Graphics;
   private readonly trajectoryGraphics: Phaser.GameObjects.Graphics;
 
-  constructor(scene: Phaser.Scene) {
+  private returnTween?: Phaser.Tweens.Tween;
+
+  constructor(private readonly scene: Phaser.Scene) {
     this.frameGraphics = scene.add.graphics().setDepth(15);
     this.bandGraphics = scene.add.graphics().setDepth(20);
     this.trajectoryGraphics = scene.add.graphics().setDepth(18);
     this.drawFrame();
+    scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.returnTween?.stop();
+      this.returnTween = undefined;
+    });
   }
 
   drawBand(projectileX: number, projectileY: number, stretched: boolean): void {
+    this.returnTween?.stop();
+    this.returnTween = undefined;
+    this.renderBand(projectileX, projectileY, stretched);
+  }
+
+  release(projectileX: number, projectileY: number): void {
+    this.returnTween?.stop();
+    const pouch = { x: projectileX, y: projectileY };
+    this.returnTween = this.scene.tweens.add({
+      targets: pouch,
+      x: this.anchor.x,
+      y: this.anchor.y,
+      duration: 220,
+      ease: "Back.Out",
+      onUpdate: () => this.renderBand(pouch.x, pouch.y, false),
+      onComplete: () => {
+        this.returnTween = undefined;
+        this.renderBand(this.anchor.x, this.anchor.y, false);
+      },
+    });
+  }
+
+  private renderBand(
+    projectileX: number,
+    projectileY: number,
+    stretched: boolean,
+  ): void {
     const g = this.bandGraphics;
     g.clear();
 

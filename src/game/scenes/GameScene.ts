@@ -143,59 +143,44 @@ export class GameScene extends Phaser.Scene {
 
   private drawBackdrop(): void {
     const background = this.add.graphics().setDepth(-30);
-    const gradientSteps = 36;
-    for (let step = 0; step < gradientSteps; step += 1) {
-      const color = Phaser.Display.Color.Interpolate.ColorWithColor(
-        Phaser.Display.Color.HexStringToColor("#07111f"),
-        Phaser.Display.Color.HexStringToColor("#142a3c"),
-        gradientSteps,
-        step,
-      );
-      background.fillStyle(
-        Phaser.Display.Color.GetColor(color.r, color.g, color.b),
-        1,
-      );
-      background.fillRect(
-        0,
-        (GAME_HEIGHT / gradientSteps) * step,
-        GAME_WIDTH,
-        GAME_HEIGHT / gradientSteps + 1,
-      );
-    }
+    background.fillStyle(COLORS.background, 1);
+    background.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-    background.lineStyle(1, COLORS.grid, 0.34);
-    for (let x = 20; x < GAME_WIDTH; x += 44) {
-      background.lineBetween(x, 102, x, GROUND_Y);
+    const cell = 24;
+    background.lineStyle(1, COLORS.grid, 0.48);
+    for (let x = 0; x <= GAME_WIDTH; x += cell) {
+      background.lineBetween(x, 0, x, GROUND_Y);
     }
-    for (let y = 108; y < GROUND_Y; y += 44) {
+    for (let y = 0; y < GROUND_Y; y += cell) {
       background.lineBetween(0, y, GAME_WIDTH, y);
     }
+    background.lineStyle(1.5, 0xc78b87, 0.5);
+    background.lineBetween(22, 0, 22, GROUND_Y);
 
-    background.lineStyle(2, COLORS.gridBright, 0.24);
-    background.beginPath();
-    background.moveTo(560, 366);
-    background.lineTo(560, 288);
-    background.lineTo(624, 288);
-    background.lineTo(624, 222);
-    background.moveTo(1127, 380);
-    background.lineTo(1194, 380);
-    background.lineTo(1194, 238);
-    background.lineTo(1242, 238);
-    background.strokePath();
-    background.fillStyle(COLORS.cyan, 0.48);
-    background.fillCircle(560, 366, 4);
-    background.fillCircle(624, 222, 4);
-    background.fillCircle(1127, 380, 4);
-    background.fillCircle(1242, 238, 4);
-
+    // Keep the physical contact edge level; the shading below it gives the
+    // illusion that the notebook page bends away into a folded paper lip.
     const ground = this.add.graphics().setDepth(-5);
-    ground.fillStyle(COLORS.ground, 1);
-    ground.fillRect(0, GROUND_Y, GAME_WIDTH, GAME_HEIGHT - GROUND_Y);
-    ground.fillStyle(COLORS.groundEdge, 1);
-    ground.fillRect(0, GROUND_Y, GAME_WIDTH, 3);
-    ground.lineStyle(1, 0x4b7184, 0.34);
-    for (let x = -20; x < GAME_WIDTH; x += 42) {
-      ground.lineBetween(x, GROUND_Y + 14, x + 28, GAME_HEIGHT);
+    const foldHeight = GAME_HEIGHT - GROUND_Y;
+    for (let row = 0; row < foldHeight; row += 1) {
+      const t = row / foldHeight;
+      const light = Math.exp(-Math.pow((t - 0.19) / 0.16, 2));
+      const shadow = Math.exp(-t * 13) * 34 + t * 17;
+      const shade = Math.round(238 + light * 14 - shadow);
+      ground.fillStyle(Phaser.Display.Color.GetColor(shade, shade - 3, shade - 12), 1);
+      ground.fillRect(0, GROUND_Y + row, GAME_WIDTH, 1);
+    }
+    ground.lineStyle(1, 0x8c8573, 0.55);
+    ground.lineBetween(0, GROUND_Y, GAME_WIDTH, GROUND_Y);
+    ground.lineStyle(1, 0xffffff, 0.75);
+    ground.lineBetween(0, GROUND_Y + 3, GAME_WIDTH, GROUND_Y + 3);
+    ground.lineStyle(1, COLORS.grid, 0.23);
+    for (let x = 0; x <= GAME_WIDTH; x += cell) {
+      const line = new Phaser.Curves.Path(x, GROUND_Y);
+      line.cubicBezierTo(x + 7, GAME_HEIGHT, x - 2, GROUND_Y + 18, x + 6, GROUND_Y + 37);
+      line.draw(ground, 20);
+    }
+    for (const y of [GROUND_Y + 18, GROUND_Y + 43, GAME_HEIGHT - 3]) {
+      ground.lineBetween(0, y, GAME_WIDTH, y);
     }
 
     this.add
@@ -204,7 +189,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Arial, sans-serif",
         fontSize: "30px",
         fontStyle: "bold",
-        color: "#f4f7fb",
+        color: "#30383c",
         letterSpacing: 1,
       })
       .setDepth(90);
@@ -214,7 +199,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Arial, sans-serif",
         fontSize: "30px",
         fontStyle: "bold",
-        color: "#5fe4e8",
+        color: "#356478",
         letterSpacing: 1,
       })
       .setDepth(90);
@@ -224,16 +209,16 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Arial, sans-serif",
         fontSize: "9px",
         fontStyle: "bold",
-        color: "#7893a8",
+        color: "#687778",
         letterSpacing: 1.7,
       })
       .setDepth(90);
 
     // The whole drawing lives on one paper sheet, exactly like the source
-    // image: ink lines and grey washes on white, with the dark UI around it.
+    // image: ink lines and grey washes on white, with the notebook UI around it.
     const panel = MEME_REFERENCE.panel;
     const sheet = this.add.graphics().setDepth(-8);
-    sheet.fillStyle(0x000000, 0.32);
+    sheet.fillStyle(0x57503d, 0.12);
     sheet.fillRoundedRect(
       panel.x + 6,
       panel.y + 8,
@@ -380,14 +365,14 @@ export class GameScene extends Phaser.Scene {
 
   private createHud(): void {
     const panels = this.add.graphics().setDepth(80);
-    panels.fillStyle(0x0b1929, 0.9);
-    panels.lineStyle(1, 0x37536b, 0.9);
+    panels.fillStyle(0xfffcf2, 0.9);
+    panels.lineStyle(1, 0xaaa995, 0.9);
     panels.fillRoundedRect(30, 111, 306, 130, 14);
     panels.strokeRoundedRect(30, 111, 306, 130, 14);
-    panels.fillStyle(0x0b1929, 0.9);
+    panels.fillStyle(0xfffcf2, 0.9);
     panels.fillRoundedRect(927, 25, 322, 84, 14);
     panels.strokeRoundedRect(927, 25, 322, 84, 14);
-    panels.fillStyle(0x0b1929, 0.84);
+    panels.fillStyle(0xfffcf2, 0.84);
     panels.fillRoundedRect(32, 274, 286, 66, 12);
     panels.strokeRoundedRect(32, 274, 286, 66, 12);
 
@@ -397,7 +382,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
-        color: "#7893a8",
+        color: "#687778",
         letterSpacing: 1.5,
       })
       .setDepth(90);
@@ -410,7 +395,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "23px",
         fontStyle: "bold",
-        color: "#f4f7fb",
+        color: "#30383c",
       })
       .setOrigin(1, 0)
       .setDepth(90);
@@ -420,11 +405,11 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
-        color: "#8ba4b8",
+        color: "#586b73",
         letterSpacing: 1,
       })
       .setDepth(90);
-    this.integrityGraphics.fillStyle(0x263d50, 1);
+    this.integrityGraphics.fillStyle(0xd8ddcf, 1);
     this.integrityGraphics.fillRoundedRect(948, 78, 205, 8, 4);
     this.add
       .text(947, 92, "ЦЕЛЬ: ОБРУШИТЬ БАШНЮ", {
@@ -432,7 +417,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "9px",
         fontStyle: "bold",
-        color: "#607c92",
+        color: "#707b78",
         letterSpacing: 1,
       })
       .setDepth(90);
@@ -442,7 +427,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "13px",
         fontStyle: "bold",
-        color: "#d9e5ef",
+        color: "#343f43",
         letterSpacing: 1,
       })
       .setDepth(90);
@@ -451,7 +436,7 @@ export class GameScene extends Phaser.Scene {
         resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "11px",
-        color: "#8aa1b4",
+        color: "#59696c",
       })
       .setDepth(90);
 
@@ -461,19 +446,19 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
-        color: "#8199ad",
+        color: "#627376",
         letterSpacing: 1,
       })
       .setOrigin(1, 0)
       .setDepth(90);
 
     const restart = this.add
-      .rectangle(1175, 136, 112, 34, 0x1d3347, 1)
-      .setStrokeStyle(1, 0x42647b, 1)
+      .rectangle(1175, 136, 112, 34, 0xe6e8db, 1)
+      .setStrokeStyle(1, 0x9ca998, 1)
       .setDepth(88);
     restart.setInteractive({ useHandCursor: true });
-    restart.on("pointerover", () => restart.setFillStyle(0x29475e, 1));
-    restart.on("pointerout", () => restart.setFillStyle(0x1d3347, 1));
+    restart.on("pointerover", () => restart.setFillStyle(0xd4dfd4, 1));
+    restart.on("pointerout", () => restart.setFillStyle(0xe6e8db, 1));
     restart.on("pointerdown", () => this.scene.restart());
     this.add
       .text(1175, 136, "↻  RESTART", {
@@ -481,7 +466,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
         fontSize: "10px",
         fontStyle: "bold",
-        color: "#c6d8e5",
+        color: "#3c535e",
         letterSpacing: 0.7,
       })
       .setOrigin(0.5)
@@ -505,13 +490,13 @@ export class GameScene extends Phaser.Scene {
       const y = 155;
       const current = index === 0;
       this.queueDisplay.fillStyle(
-        current ? spec.color : 0x203246,
-        current ? 0.24 : 0.75,
+        current ? spec.color : 0xe8e9de,
+        current ? 0.17 : 0.85,
       );
       this.queueDisplay.fillRoundedRect(x, y, 87, 68, 10);
       this.queueDisplay.lineStyle(
         current ? 2 : 1,
-        current ? spec.color : 0x3b5267,
+        current ? spec.color : 0xb4bcae,
         current ? 0.9 : 0.7,
       );
       this.queueDisplay.strokeRoundedRect(x, y, 87, 68, 10);
@@ -526,7 +511,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "9px",
           fontStyle: "bold",
-          color: current ? "#f4f7fb" : "#91a5b6",
+          color: current ? "#30383c" : "#586a71",
         })
         .setOrigin(0, 0.5)
         .setDepth(90);
@@ -536,7 +521,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "8px",
           fontStyle: "bold",
-          color: current ? "#d4dfe9" : "#61798e",
+          color: current ? "#394f59" : "#738081",
           letterSpacing: 0.6,
         })
         .setOrigin(0, 0.5)
@@ -549,9 +534,9 @@ export class GameScene extends Phaser.Scene {
     const ratio =
       this.initialHealth > 0 ? this.remainingHealth / this.initialHealth : 1;
     const color =
-      ratio > 0.58 ? COLORS.green : ratio > 0.28 ? COLORS.amber : COLORS.red;
+      ratio > 0.58 ? 0x6c9274 : ratio > 0.28 ? 0xc59942 : 0xc36c58;
     this.integrityGraphics.clear();
-    this.integrityGraphics.fillStyle(0x263d50, 1);
+    this.integrityGraphics.fillStyle(0xd8ddcf, 1);
     this.integrityGraphics.fillRoundedRect(948, 78, 205, 8, 4);
     this.integrityGraphics.fillStyle(color, 1);
     this.integrityGraphics.fillRoundedRect(
@@ -986,12 +971,12 @@ export class GameScene extends Phaser.Scene {
         GAME_HEIGHT / 2,
         GAME_WIDTH,
         GAME_HEIGHT,
-        0x050b12,
+        0x585747,
         0.76,
       )
       .setDepth(150);
     const card = this.add
-      .rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 470, 270, 0x102237, 1)
+      .rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 470, 270, 0xfffcf2, 1)
       .setStrokeStyle(2, won ? COLORS.cyan : COLORS.amber, 0.9)
       .setDepth(151);
     const eyebrow = this.add
@@ -1004,7 +989,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "11px",
           fontStyle: "bold",
-          color: won ? "#5fe4e8" : "#ffb84d",
+          color: won ? "#356478" : "#ffb84d",
           letterSpacing: 2,
         },
       )
@@ -1020,7 +1005,7 @@ export class GameScene extends Phaser.Scene {
         fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "27px",
           fontStyle: "900",
-          color: "#f4f7fb",
+          color: "#30383c",
           letterSpacing: 0.4,
         },
       )
@@ -1037,19 +1022,19 @@ export class GameScene extends Phaser.Scene {
           resolution: 3,
         fontFamily: "Inter, system-ui, sans-serif",
           fontSize: "13px",
-          color: "#a8bdce",
+          color: "#59696c",
           align: "center",
         },
       )
       .setOrigin(0.5)
       .setDepth(152);
     const button = this.add
-      .rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 86, 190, 46, 0x1d7180, 1)
+      .rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 86, 190, 46, 0x466e77, 1)
       .setStrokeStyle(1, 0x5fe4e8, 0.9)
       .setInteractive({ useHandCursor: true })
       .setDepth(152);
-    button.on("pointerover", () => button.setFillStyle(0x258b98, 1));
-    button.on("pointerout", () => button.setFillStyle(0x1d7180, 1));
+    button.on("pointerover", () => button.setFillStyle(0x567e86, 1));
+    button.on("pointerout", () => button.setFillStyle(0x466e77, 1));
     button.on("pointerdown", () => this.scene.restart());
     const buttonLabel = this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 86, "НОВАЯ ПОПЫТКА", {

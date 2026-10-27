@@ -4,10 +4,10 @@ export const GROUND_Y = 650;
 export const WORLD_BOTTOM = GAME_HEIGHT + 120;
 
 export const COLORS = {
-  background: 0x091525,
-  backgroundDeep: 0x07111f,
-  grid: 0x1b3449,
-  gridBright: 0x2d5369,
+  background: 0xf5f2e6,
+  backgroundDeep: 0xe4e1d5,
+  grid: 0x9ab9c3,
+  gridBright: 0x799faa,
   white: 0xf4f7fb,
   muted: 0x9db0c4,
   ink: 0x171717,

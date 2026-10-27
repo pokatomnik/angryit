@@ -7,8 +7,8 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-    color: #eef4ff;
-    background: #07111f;
+    color: #30383c;
+    background: #e4e1d5;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
 }
@@ -23,7 +23,7 @@ body {
     height: 100%;
     margin: 0;
     overflow: hidden;
-    background: #07111f;
+    background: #e4e1d5;
 }
 
 body {
@@ -49,5 +49,5 @@ body {
     max-height: 100%;
     touch-action: none;
     border-radius: 16px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+    box-shadow: 0 24px 80px rgba(80, 72, 46, 0.2);
 }
